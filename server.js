@@ -23,6 +23,16 @@ app.post("/createuser", async (req, res) => {
   }
 });
 
+app.get("/getuserlist", async (req, res) => {
+  try {
+    const userList = await User.find();
+    console.log(userList);
+    res.send(userList);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => {
