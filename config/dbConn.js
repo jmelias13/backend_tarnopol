@@ -1,0 +1,17 @@
+const mongoose = require("mongoose");
+
+const URL =
+  "mongodb+srv://jmelias13:admin@testtarnopol.ipp4ztg.mongodb.net/?retryWrites=true&w=majority";
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(URL, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+module.exports = connectDB;
