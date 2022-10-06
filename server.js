@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
+const PORT = process.env.PORT || 3500;
 
 //Connect to databse
 connectDB();
@@ -24,7 +25,7 @@ app.post("/createuser", async (req, res) => {
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
-  app.listen(3500, () => {
-    console.log("Server listening on 3500");
+  app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
   });
 });
