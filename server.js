@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3500;
+const cors = require("cors");
+app.use(cors());
 
 //Connect to databse
 connectDB();
