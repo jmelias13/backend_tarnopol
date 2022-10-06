@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const { collection } = require("../model/user");
 
 const URL =
-  "mongodb+srv://jmelias13:admin@testtarnopol.ipp4ztg.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://jmelias13:admin@testtarnopol.ipp4ztg.mongodb.net/?retryWrites=true&w=majority/tarnopolfootball";
 
 const connectDB = async () => {
   try {
