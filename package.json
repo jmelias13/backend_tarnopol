@@ -1,5 +1,6 @@
 {
   "name": "nodetarnopol",
+  "homepage": "https://test-node-app-joshelias.herokuapp.com/",
   "version": "1.0.0",
   "description": "Backend for tarnopol.com",
   "main": "server.js",
