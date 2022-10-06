@@ -36,6 +36,17 @@ app.get("/getuserlist", async (req, res) => {
   }
 });
 
+// DEL - delete a single user
+app.delete("/deluser/:username", async (req, res) => {
+  try {
+    const result = await User.deleteOne({ username: req.params.username });
+    console.log(result);
+    res.send("User Deleted: " + req.params.username);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => {
