@@ -26,6 +26,7 @@ app.post("/createuser", async (req, res) => {
   const { email, username, password, firstName, lastName, role } = req.body;
   try {
     const oldUser = User.findOne({ username });
+    oldUser = User.findOne({ email });
     if (oldUser) {
       console.log("Running Through oldUser Error Loop");
       res.send({ error: "User Exists" });
