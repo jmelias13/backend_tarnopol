@@ -6,6 +6,12 @@ const PORT = process.env.PORT || 3500;
 const cors = require("cors");
 app.use(cors());
 
+app.get("/login", (req, res) => {
+  res.send({
+    token: "test123",
+  });
+});
+
 //Connect to databse
 connectDB();
 
