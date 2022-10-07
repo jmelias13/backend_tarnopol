@@ -23,7 +23,13 @@ const User = require("./model/user.js");
 
 // POST - create new user
 app.post("/createuser", async (req, res) => {
+  const { email, username, password, firstName, lastName, role } = req.body;
   try {
+    const oldUser = User.findOne({ username });
+    if (oldUser) {
+      console.log("Running Through oldUser Error Loop");
+      res.send({ error: "User Exists" });
+    }
     req.body.dateCreated = new Date();
     let data = new User(req.body);
     const result = await data.save();
