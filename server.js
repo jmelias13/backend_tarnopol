@@ -23,10 +23,9 @@ const User = require("./model/user.js");
 
 // POST - create new user
 app.post("/createuser", async (req, res) => {
-  const { email, username, password, firstName, lastName, role } = req.body;
+  const { email, password, firstName, lastName, role } = req.body;
   try {
-    const oldUser = User.findOne({ username });
-    oldUser = User.findOne({ email });
+    const oldUser = User.findOne({ email });
     if (oldUser) {
       console.log("Running Through oldUser Error Loop");
       res.send({ error: "User Exists" });
@@ -52,11 +51,11 @@ app.get("/getuserlist", async (req, res) => {
 });
 
 // DEL - delete a single user
-app.delete("/deluser/:username", async (req, res) => {
+app.delete("/deluser/:email", async (req, res) => {
   try {
-    const result = await User.deleteOne({ username: req.params.username });
+    const result = await User.deleteOne({ email: req.params.email });
     console.log(result);
-    res.send("User Deleted: " + req.params.username);
+    res.send("User Deleted: " + req.params.email);
   } catch (err) {
     console.log(err);
   }
