@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   role: { type: String, required: true },
+  token: { type: String },
   dateCreated: { type: Date, required: true },
 });
 

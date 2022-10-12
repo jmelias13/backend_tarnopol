@@ -4,13 +4,9 @@ const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3500;
 const cors = require("cors");
-app.use(cors());
+require("dotenv").config();
 
-app.use("/login", (req, res) => {
-  res.send({
-    token: "test123",
-  });
-});
+app.use(cors());
 
 //Connect to databse
 connectDB();
@@ -20,20 +16,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const User = require("./model/user.js");
+const { json } = require("body-parser");
 
 // POST - create new user
-app.post("/createuser", async (req, res) => {
-  const { email, password, firstName, lastName, role } = req.body;
+app.post("/login", async (req, res) => {
   try {
-    const oldUser = User.findOne({ email });
-    if (oldUser) {
-      console.log("Running Through oldUser Error Loop");
-      res.send({ error: "User Exists" });
+    // Get user input
+    const { email, password } = req.body;
+
+    // Validate if user exist in our database
+    const user = await User.findOne({ email });
+    if (user && user.email === email && user.password === password) {
+      console.log("VERIFIED!!!!");
+      res.send(user);
+    } else {
+      console.log("Not Verified");
+      res.status(400).send();
     }
+  } catch (err) {
+    console.log(err);
+  }
+});
+// POST - create new user
+app.post("/createuser", (req, res) => {
+  try {
     req.body.dateCreated = new Date();
     let data = new User(req.body);
-    const result = await data.save();
-    res.send(result);
+    data.save();
+    console.log(data);
+    res.send(data);
   } catch (err) {
     console.log(err);
   }
@@ -54,8 +65,7 @@ app.get("/getuserlist", async (req, res) => {
 app.delete("/deluser/:email", async (req, res) => {
   try {
     const result = await User.deleteOne({ email: req.params.email });
-    console.log(result);
-    res.send("User Deleted: " + req.params.email);
+    res.send(result);
   } catch (err) {
     console.log(err);
   }
