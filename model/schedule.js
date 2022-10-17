@@ -5,7 +5,6 @@ const weeklyScheduleSchema = mongoose.Schema({
       commence_time: Date,
       home_team: String,
       away_team: String,
-      lastUpdatedOdds: Date,
       home_team_11adjusted_spread: Number,
       away_team_11adjusted_spread: Number,
       home_team_score: Number,
