@@ -8,8 +8,7 @@ const cors = require("cors");
 
 var cron = require("node-cron");
 cron.schedule(
-  "14 0 * * 2",
-  /*   "0 7 * 9,10,11,12,1,2 3", */
+  "0 7 * 9,10,11,12,1,2 3",
   async () => {
     console.log("DeActivating Old Schedule");
     let updatedOldSchedule = await Weekly_Game_Schedule.findOneAndUpdate(
