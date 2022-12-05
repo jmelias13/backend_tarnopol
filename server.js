@@ -8,9 +8,17 @@ const cors = require("cors");
 
 var cron = require("node-cron");
 cron.schedule(
-  "0 7 * 9,10,11,12,1,2 3",
-  () => {
-    console.log("New Schedule");
+  "14 0 * * 2",
+  /*   "0 7 * 9,10,11,12,1,2 3", */
+  async () => {
+    console.log("DeActivating Old Schedule");
+    let updatedOldSchedule = await Weekly_Game_Schedule.findOneAndUpdate(
+      { active: true },
+      { active: false },
+      { new: true }
+    );
+
+    console.log("Activating New Schedule");
     https
       .get(
         "https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds?apiKey=d4904aa7f2f316605ce839308d91e4ba&regions=us&markets=spreads&bookmakers=draftkings",
@@ -88,6 +96,7 @@ app.get("/getcounter", async (req, res) => {
 
 const User = require("./model/user.js");
 const Weekly_Game_Schedule = require("./model/schedule.js");
+const { Console } = require("console");
 
 // POST - create new user
 app.post("/login", async (req, res) => {
