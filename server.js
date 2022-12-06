@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 const https = require("https");
@@ -5,6 +6,22 @@ const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3500;
 const cors = require("cors");
+const User = require("./model/user.js");
+const Weekly_Game_Schedule = require("./model/schedule.js");
+const { Console } = require("console");
+
+require("dotenv").config();
+
+app.use(cors());
+
+//Connect to databse
+connectDB();
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const counter = require("./model/counter.js");
 
 var cron = require("node-cron");
 cron.schedule(
@@ -69,19 +86,6 @@ cron.schedule(
     timezone: "America/New_York",
   }
 );
-
-require("dotenv").config();
-
-app.use(cors());
-
-//Connect to databse
-connectDB();
-
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const counter = require("./model/counter.js");
 app.get("/getcounter", async (req, res) => {
   try {
     let id = "63477166bd3019e77ab310f3";
@@ -92,10 +96,6 @@ app.get("/getcounter", async (req, res) => {
     console.log(err);
   }
 });
-
-const User = require("./model/user.js");
-const Weekly_Game_Schedule = require("./model/schedule.js");
-const { Console } = require("console");
 
 // POST - create new user
 app.post("/login", async (req, res) => {
